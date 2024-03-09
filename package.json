@@ -1,0 +1,34 @@
+{
+  "name": "asset-builder",
+  "productName": "AssetBuilder",
+  "version": "1.0.3",
+  "description": "Asset Builder",
+  "author": "Jollywise",
+  "scripts": {
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
+    "win": "electron-webpack && electron-builder --win",
+    "mac": "electron-webpack && electron-builder --mac"
+  },
+  "devDependencies": {
+    "electron": "^26.2.2",
+    "electron-builder": "^24.6.4",
+    "electron-webpack": "^2.8.2"
+  },
+  "dependencies": {
+    "@jollywise/jollygoodgame-assets": "git+https://github.com/jollywise/jollygoodgame-assets.git"
+  },
+  "build": {
+    "appId": "uk.co.jollywise.asset-builder",
+    "productName": "AssetBuilder",
+    "win": {
+      "icon": "build/icon.png",
+      "target": {
+        "target": "portable",
+        "arch": [
+          "x64"
+        ]
+      }
+    }
+  }
+}
