@@ -76,10 +76,12 @@ fetch(
   "https://api.github.com/repos/jollywise/asset-builder/git/matching-refs/tags"
 ).then((response) => {
   response.json().then((data) => {
-    const version = data[0].ref.replace("refs/tags/", "");
-    if (version !== packageJson.version) {
-      document.getElementById("update_asset_builder").style.display = "block";
-      document.getElementById("update_asset_builder_v").innerHTML = version;
+    if (data.length > 0) {
+      const version = data[data.length - 1].ref.replace("refs/tags/", "");
+      if (version !== packageJson.version) {
+        document.getElementById("update_asset_builder").style.display = "block";
+        document.getElementById("update_asset_builder_v").innerHTML = version;
+      }
     }
   });
 });
