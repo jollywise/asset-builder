@@ -1,7 +1,7 @@
 {
   "name": "asset-builder",
   "productName": "AssetBuilder",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Asset Builder",
   "author": "Jollywise",
   "scripts": {

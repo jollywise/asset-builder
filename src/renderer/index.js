@@ -37,7 +37,8 @@ document.getElementById("app").innerHTML =
   '<div style="display: flex; flex-direction: column; height: 100%"><h1>Asset Builder v' +
   packageJson.version +
   '</h1> \
-<div style="margin-top: 10px; " id="project_stage">Current state: waiting...</div> \
+  <div style="display: none; margin-top: 10px; color: red" id="update_asset_builder">Please update to the latest version of Asset Builder (v<span id="update_asset_builder_v"></span>).</div> \
+  <div style="margin-top: 10px; " id="project_stage">Current state: waiting...</div> \
 <div style="margin-top: 10px" id="project_capabilities"></div> \
 <div style="margin-top: 10px" id="project_initial">Please drag and drop a project folder here to process the assets.</div> \
 <div style="display: none; margin-top: 10px; color: red" id="project_error">Please make sure you drag the project folder, which should contain folders such as <pre style="display: inline">assets_src</pre> and <pre style="display: inline">src</pre>.</div> \
@@ -70,5 +71,17 @@ document.addEventListener("dragleave", (event) => {
 });
 
 document.getElementById("app").style.height = "500px";
+
+fetch(
+  "https://api.github.com/repos/jollywise/asset-builder/git/matching-refs/tags"
+).then((response) => {
+  response.json().then((data) => {
+    const version = data[0].ref.replace("refs/tags/", "");
+    if (version !== packageJson.version) {
+      document.getElementById("update_asset_builder").style.display = "block";
+      document.getElementById("update_asset_builder_v").innerHTML = version;
+    }
+  });
+});
 
 import "./styles.css";
