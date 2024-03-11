@@ -3,7 +3,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import { format as formatUrl } from "url";
-import { build, detectFFMpeg } from "./builder";
+import { build, checkFFMpeg, checkSpine } from "./builder";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -36,9 +36,10 @@ function createMainWindow() {
   });
 
   window.webContents.on("did-finish-load", () => {
-    detectFFMpeg().then((result) => {
+    checkFFMpeg().then((result) => {
       window.webContents.send("ffmpeg", result);
     });
+    window.webContents.send("spine", checkSpine());
   });
 
   window.on("closed", () => {

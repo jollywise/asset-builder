@@ -1,21 +1,20 @@
 const path = require("path");
 const fs = require("fs");
 const { cosmiconfigSync } = require("cosmiconfig");
-const { processors } = require("@jollywise/jollygoodgame-assets");
+const {
+  processors,
+  detectFFMpeg,
+  getSpineLocation,
+} = require("@jollywise/jollygoodgame-assets");
 
 let processing = false;
 
-export const detectFFMpeg = async () => {
-  return new Promise((resolve) => {
-    require("child_process")
-      .spawn("ffmpeg", ["-v"])
-      .on("exit", function (code, signal) {
-        resolve(true);
-      })
-      .on("error", function (e) {
-        resolve(false);
-      });
-  });
+export const checkFFMpeg = async () => {
+  return await detectFFMpeg();
+};
+
+export const checkSpine = () => {
+  return !!getSpineLocation();
 };
 
 export const build = async (folder, ipcMain) => {
@@ -42,7 +41,10 @@ export const build = async (folder, ipcMain) => {
       await runScript(folder, "audiosprites", ipcMain);
     }
     await runScript(folder, "spritesheets", ipcMain);
-    await runScript(folder, "exportspines", ipcMain);
+    const spineLocation = getSpineLocation();
+    if (spineLocation) {
+      await runScript(folder, "exportspines", ipcMain);
+    }
     await runScript(folder, "compressImages", ipcMain);
 
     ipcMain.send("success");

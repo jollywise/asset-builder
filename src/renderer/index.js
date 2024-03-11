@@ -25,11 +25,20 @@ ipcRenderer.on("stage", (event, payload) => {
 });
 ipcRenderer.on("ffmpeg", (event, payload) => {
   if (payload) {
-    document.getElementById("project_capabilities").innerHTML =
+    document.getElementById("project_capabilities_ffmpeg").innerHTML =
       "FFMpeg is installed.";
   } else {
-    document.getElementById("project_capabilities").innerHTML =
+    document.getElementById("project_capabilities_ffmpeg").innerHTML =
       "FFMpeg is NOT installed. Processing will be skipped for audiosprites and music.<br />Please install by running <pre>winget install ffmpeg</pre> in a terminal window.";
+  }
+});
+ipcRenderer.on("spine", (event, payload) => {
+  if (payload) {
+    document.getElementById("project_capabilities_spine").innerHTML =
+      "Spine is installed.";
+  } else {
+    document.getElementById("project_capabilities_spine").innerHTML =
+      "Spine is NOT installed. Processing will be skipped for spine files.";
   }
 });
 
@@ -39,7 +48,7 @@ document.getElementById("app").innerHTML =
   '</h1> \
   <div style="display: none; margin-top: 10px; color: red" id="update_asset_builder">Please update to the latest version of Asset Builder (v<span id="update_asset_builder_v"></span>).</div> \
   <div style="margin-top: 10px; " id="project_stage">Current state: waiting...</div> \
-<div style="margin-top: 10px" id="project_capabilities"></div> \
+<div style="margin-top: 10px" id="project_capabilities"><div id="project_capabilities_ffmpeg"></div><div id="project_capabilities_spine"></div></div> \
 <div style="margin-top: 10px" id="project_initial">Please drag and drop a project folder here to process the assets.</div> \
 <div style="display: none; margin-top: 10px; color: red" id="project_error">Please make sure you drag the project folder, which should contain folders such as <pre style="display: inline">assets_src</pre> and <pre style="display: inline">src</pre>.</div> \
 <div style="margin-top: 10px; overflow-y: auto; flex-grow: 1;" id="project_output"></div>';
