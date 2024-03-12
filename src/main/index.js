@@ -3,7 +3,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import { format as formatUrl } from "url";
-import { build, checkFFMpeg, checkSpine } from "./builder";
+import { build, checkFFMpeg, checkSpine, checkTiled } from "./builder";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -40,6 +40,7 @@ function createMainWindow() {
       window.webContents.send("ffmpeg", result);
     });
     window.webContents.send("spine", checkSpine());
+    window.webContents.send("tiled", checkTiled());
   });
 
   window.on("closed", () => {

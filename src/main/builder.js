@@ -5,6 +5,7 @@ const {
   processors,
   detectFFMpeg,
   getSpineLocation,
+  getTiledLocation,
 } = require("@jollywise/jollygoodgame-assets");
 
 let processing = false;
@@ -15,6 +16,10 @@ export const checkFFMpeg = async () => {
 
 export const checkSpine = () => {
   return !!getSpineLocation();
+};
+
+export const checkTiled = () => {
+  return !!getTiledLocation();
 };
 
 export const build = async (folder, ipcMain) => {
@@ -32,6 +37,10 @@ export const build = async (folder, ipcMain) => {
 
     await runScript(folder, "staticfiles", ipcMain);
     await runScript(folder, "fonts", ipcMain);
+    const tiledExists = getTiledLocation();
+    if (tiledExists) {
+      await runScript(folder, "exporttiled");
+    }
     const ffmpegExists = await detectFFMpeg();
     if (ffmpegExists) {
       await runScript(folder, "music", ipcMain);
