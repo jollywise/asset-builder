@@ -25,19 +25,19 @@ ipcRenderer.on("stage", (event, payload) => {
 });
 ipcRenderer.on("ffmpeg", (event, payload) => {
   if (!payload) {
-    document.getElementById("project_capabilities_ffmpeg").innerHTML +=
+    document.getElementById("missing_externals").innerHTML +=
       "FFMpeg is not installed. Processing will be skipped for audiosprites and music.<br />";
   }
 });
 ipcRenderer.on("spine", (event, payload) => {
   if (!payload) {
-    document.getElementById("project_capabilities_spine").innerHTML +=
+    document.getElementById("missing_externals").innerHTML +=
       "Spine is not installed. Processing will be skipped for spine files.<br />";
   }
 });
 ipcRenderer.on("tiled", (event, payload) => {
   if (!payload) {
-    document.getElementById("project_capabilities_tiled").innerHTML +=
+    document.getElementById("missing_externals").innerHTML +=
       "Tiled is not installed. Processing will be skipped for tiled files.<br />";
   }
 });
