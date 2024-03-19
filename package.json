@@ -29,6 +29,12 @@
           "x64"
         ]
       }
+    },
+    "mac": {
+      "target": {
+        "target": "default",
+        "arch": "universal"
+      }
     }
   }
 }
