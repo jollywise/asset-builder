@@ -39,7 +39,7 @@ export const build = async (folder, ipcMain) => {
     await runScript(folder, "fonts", ipcMain);
     const tiledExists = getTiledLocation();
     if (tiledExists) {
-      await runScript(folder, "exporttiled");
+      await runScript(folder, "exporttiled", ipcMain);
     }
     const ffmpegExists = await detectFFMpeg();
     if (ffmpegExists) {
